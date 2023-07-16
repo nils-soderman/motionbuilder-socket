@@ -9,7 +9,7 @@
     "author": {
         "name": "Nils Soderman"
     },
-    "license": "SEE LICENSE IN LICENSE",
+    "license": "MIT-0",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
