@@ -7,7 +7,7 @@ import { MotionBuilderSocket } from "motionbuilder-socket";
 
 const socket = new MotionBuilderSocket();
 socket.open().then(() => {
-    cosnt response = socket.exec("from pyfbsdk import *;FBModelCube('Test')");
+    const response = socket.exec("from pyfbsdk import *;FBModelCube('Test')");
 });
 ```
 
