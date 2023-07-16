@@ -1,4 +1,4 @@
-# Motionbuilder Socket
+# MotionBuilder Socket
 NodeJS module for connecting to Autodesk MotionBuilder
 
 ## Example
