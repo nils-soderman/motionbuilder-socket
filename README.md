@@ -6,9 +6,12 @@ NodeJS module for connecting to Autodesk MotionBuilder
 import { MotionBuilderSocket } from "motionbuilder-socket";
 
 const socket = new MotionBuilderSocket();
-socket.open().then(() => {
-    const response = socket.exec("from pyfbsdk import *;FBModelCube('Test')");
+
+socket.open().then(async () => {
+    const response = await socket.exec("FBModelCube('Test')");
+    socket.close();
 });
 ```
+
 
 _*This is a third-party module and is not associated with Autodesk or MotionBuilder in any way._
