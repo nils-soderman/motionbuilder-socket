@@ -11,4 +11,4 @@ socket.open().then(() => {
 });
 ```
 
-*This is a third-party module and is not associated with Autodesk or MotionBuilder in any way.
+_*This is a third-party module and is not associated with Autodesk or MotionBuilder in any way._
