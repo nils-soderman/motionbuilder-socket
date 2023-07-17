@@ -93,7 +93,10 @@ export class MotionBuilderSocket {
      * @param timeoutInSeconds How long to wait for a connection before timing out. Set to 0 to disable timeout.
      * @returns A promise that resolves when the connection is ready.
      */
-    open(timeoutInSeconds = 10): Promise<void> {
+    open(timeoutInSeconds = 0): Promise<void> {
+        if (this.isOpen()) {
+            return Promise.resolve();
+        }
         this.socket = net.createConnection(this.port, this.ip);
 
         this.socket.on('error', this.onError);
@@ -133,7 +136,6 @@ export class MotionBuilderSocket {
         this.socket?.destroy();
     }
 
-
     /**
      * Execute a python statement in MotionBuilder.
      * @param command Python code to run. To run multiple statements, seperate them with a semicolon.
@@ -146,5 +148,22 @@ export class MotionBuilderSocket {
         }
 
         return this.write(command);
+    }
+
+    /**
+     * Execute a python file in MotionBuilder.
+     * @param filepath The absolute path to the file to execute
+     * @param globals Global variables to set before executing the file
+     * @returns Python output such as print statements or errors
+     */
+    execFile(filepath: string, globals: any = {}): Promise<string> {
+        if (!globals.hasOwnProperty('__file__')) {
+            globals["__file__"] = filepath;
+        }
+
+        let globals_str = JSON.stringify(globals);
+        globals_str = globals_str.replace(/\\/g, "\\\\");
+
+        return this.exec(`import json;globals().update(json.loads('${globals_str}'));f=open(r'${filepath}','r');exec(f.read());f.close()`);
     }
 }
