@@ -7,6 +7,8 @@ class ErrorWithCode extends Error {
 }
 
 export class MotionBuilderSocket {
+    readonly port = 4242;
+
     private socket?: net.Socket;
     private isReady = false;
 
@@ -14,8 +16,7 @@ export class MotionBuilderSocket {
     private isExecuting = false;
 
     constructor(
-        public readonly ip = '127.0.0.1',
-        public readonly port = 4242
+        public readonly ip = '127.0.0.1'
     ) {
     }
 
