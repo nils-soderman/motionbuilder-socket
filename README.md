@@ -8,7 +8,7 @@ import { MotionBuilderSocket } from "motionbuilder-socket";
 const socket = new MotionBuilderSocket();
 
 socket.open().then(async () => {
-    const response = await socket.exec("FBModelCube('Test')");
+    const response = await socket.exec("Cube=FBModelCube('Test');Cube.Show=True");
     socket.close();
 });
 ```
