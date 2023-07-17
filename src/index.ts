@@ -139,6 +139,11 @@ export class MotionBuilderSocket {
      * @returns Python output such as print statements or errors
      */
     exec(command: string): Promise<string> {
+        // If command doesn't end with a new line it won't execute
+        if (!command.endsWith('\n')) {
+            command += '\n';
+        }
+
         return this.write(command);
     }
 }
