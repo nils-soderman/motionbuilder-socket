@@ -41,15 +41,19 @@ describe('RemoteExecution', () => {
 	test('Exec Globals', async () => {
 		const filepath = `${__dirname}/fixtures/test_globals.py`;
 
-		const string = "Hello! :') \"";
+		const string = "Hello!\n :') \"";
 
 		const globals = {
+			"test_boolean": true,
+			"test_none": null,
 			"test_number": 42,
 			"test_string": string,
 			"test_array": [1, 2, 3],
 			"test_dict": {
-				"a": 1,
-				"b": 2,
+				"inner_dict": {
+					"a": 1,
+					"b": 2,
+				}
 			}
 		};
 
