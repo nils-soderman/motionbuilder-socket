@@ -19,10 +19,13 @@
     },
     "scripts": {
         "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean",
-        "lint": "tsc"
+        "lint": "tsc",
+        "test": "jest"
     },
     "devDependencies": {
+        "@types/jest": "^29.5.12",
         "@types/node": "^20.4.2",
+        "ts-jest": "^29.1.5",
         "tsup": "^7.1.0",
         "typescript": "^5.1.6"
     },
