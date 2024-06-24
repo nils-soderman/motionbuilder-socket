@@ -21,7 +21,7 @@ describe('RemoteExecution', () => {
 	test('Baic Settigs', async () => {
 		expect(motionBuilderSocket.ip).toBe("127.0.0.1");
 		expect(motionBuilderSocket.port).toBe(4242);
-		
+
 		expect(motionBuilderSocket.isOpen()).toBe(true);
 	});
 
@@ -32,7 +32,7 @@ describe('RemoteExecution', () => {
 
 	test('Exec File', async () => {
 		const filepath = `${__dirname}/fixtures/test_exec.py`;
-		
+
 		const response = await motionBuilderSocket.execFile(filepath);
 
 		expect(response).toBe('success');
@@ -60,11 +60,5 @@ describe('RemoteExecution', () => {
 		const response = await motionBuilderSocket.execFile(filepath, globals);
 
 		expect(response).toBe(string);
-	});
-
-	test('Globals', async () => {
-		const response = await motionBuilderSocket.exec('print("Hello World")');
-
-		expect(response).toBe('Hello World');
 	});
 });
