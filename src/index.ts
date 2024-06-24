@@ -67,13 +67,13 @@ export class MotionBuilderSocket {
             }
         });
 
-        let recivedBuffer = '';
+        let receivedData = '';
         this.socket?.on('data', (chunk: Buffer) => {
-            recivedBuffer += chunk.toString('utf8');
+            receivedData += chunk.toString('utf8');
 
-            if (recivedBuffer.trimEnd().endsWith('>>>')) {
+            if (receivedData.trimEnd().endsWith('>>>')) {
                 this.socket?.removeAllListeners('data');
-                let outputData = recivedBuffer.trimEnd().slice(0, -3).trimEnd(); // Remove the >>> & trailing whitespace
+                let outputData = receivedData.trimEnd().slice(0, -3).trimEnd(); // Remove the `>>>` and trailing whitespace
                 outputData = outputData.replace(/\n\r/g, '\n');
                 command.resolve(outputData);
                 this.executeNextCommand();
@@ -163,7 +163,7 @@ export class MotionBuilderSocket {
      * @param globals Global variables to set before executing the file
      * @returns Python output such as print statements or errors
      */
-    execFile(filepath: string, globals: any = {}): Promise<string> {
+    execFile(filepath: string, globals: Record<string, any> = {}): Promise<string> {
         if (!globals.hasOwnProperty('__file__')) {
             globals["__file__"] = filepath;
         }
