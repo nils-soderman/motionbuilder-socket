@@ -139,7 +139,7 @@ export class MotionBuilderSocket {
 
     /**
      * Execute a python statement in MotionBuilder.
-     * The command can only be 1024 bytes at most (including the last newline character).
+     * The command can only be 1025 bytes at most (including the last newline character).
      * @param command Python code to run. To run multiple statements, seperate them with a semicolon.
      * @returns Python output such as print statements or errors
      */
@@ -149,9 +149,9 @@ export class MotionBuilderSocket {
             command += '\n';
         }
 
-        // Make sure command is't larger than 1024 bytes
-        if (Buffer.byteLength(command) > 1024) {
-            return Promise.reject(new Error('Command is too large, must be less than 1024 bytes'));
+        // MotionBuilder can only handle commands up to 1025 bytes
+        if (Buffer.byteLength(command) > 1025) {
+            return Promise.reject(new Error('Command is too large, must be less than 1025 bytes'));
         }
 
         return this.write(command);
