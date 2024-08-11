@@ -178,12 +178,12 @@ export class MotionBuilderSocket {
             globals["__file__"] = filepath;
         }
 
-        let globals_str = JSON.stringify(globals);
+        let globalsStr = JSON.stringify(globals);
 
         // Escape special characters
-        globals_str = globals_str.replace(/\\/g, "\\\\");
-        globals_str = globals_str.replace(/'/g, "\\'");
+        globalsStr = globalsStr.replace(/\\/g, "\\\\");
+        globalsStr = globalsStr.replace(/'/g, "\\'");
 
-        return this.exec(`import json;globals().update(json.loads('${globals_str}'));f=open(r'${filepath}','r');exec(f.read());f.close()`);
+        return this.exec(`import json;globals().update(json.loads('${globalsStr}'));f=open(r'${filepath}','r');exec(f.read());f.close()`);
     }
 }
