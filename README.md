@@ -1,5 +1,5 @@
 # MotionBuilder Socket
-NodeJS module for connecting to Autodesk MotionBuilder
+NodeJS module for connecting to Autodesk MotionBuilder and running python commands.
 
 ## Example
 ```typescript
