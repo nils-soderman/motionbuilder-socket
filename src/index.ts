@@ -9,6 +9,7 @@ class ErrorWithCode extends Error {
 export class MotionBuilderSocket {
     readonly port = 4242;
 
+    /** System information about the connected MotionBuilder instance */
     public systemInfo?: string;
 
     private socket?: net.Socket;
@@ -19,8 +20,7 @@ export class MotionBuilderSocket {
 
     constructor(
         public readonly ip = '127.0.0.1'
-    ) {
-    }
+    ) { }
 
     private onError(e: Error) {
         this.socket?.destroy();
@@ -36,7 +36,7 @@ export class MotionBuilderSocket {
     /**
      * Write to the socket and wait for a response.
      * @param buffer The data to write to the socket
-     * @returns 
+     * @returns A promise that resolves with the output from the socket
      */
     private write(buffer: string | Uint8Array): Promise<string> {
         return new Promise((resolve, reject) => {
@@ -93,10 +93,10 @@ export class MotionBuilderSocket {
 
     /**
      * Opens a connection to MotionBuilder, this must be called before any other methods.
-     * @param timeoutInSeconds How long to wait for a connection before timing out. Set to 0 to disable timeout.
+     * @param timeoutDuration Time to wait in milliseconds before timing out. Default is 0 which means no timeout.
      * @returns A promise that resolves when the connection is ready.
      */
-    open(timeoutInSeconds = 0): Promise<void> {
+    open(timeoutDuration = 0): Promise<void> {
         if (this.isOpen()) {
             return Promise.resolve();
         }
@@ -106,12 +106,12 @@ export class MotionBuilderSocket {
         this.socket.on("close", this.onClose);
 
         return new Promise((resolve, reject: (error: Error) => void) => {
-            let timeout: NodeJS.Timeout | undefined = undefined;
-            if (timeoutInSeconds > 0) {
-                timeout = setTimeout(() => {
+            let timer: NodeJS.Timeout | undefined = undefined;
+            if (timeoutDuration > 0) {
+                timer = setTimeout(() => {
                     reject(new ErrorWithCode('Connection timed out', "ETIMEDOUT"));
                     this.socket?.destroy();
-                }, timeoutInSeconds * 1000);
+                }, timeoutDuration);
             }
 
             this.socket?.on('data', (data) => {
@@ -123,13 +123,13 @@ export class MotionBuilderSocket {
                 if (dataStr.endsWith('>>>')) {
                     this.socket?.removeAllListeners('data');
                     this.isReady = true;
-                    clearTimeout(timeout);
+                    clearTimeout(timer);
                     resolve();
                 }
             });
 
             this.socket?.once('error', (error: any) => {
-                clearTimeout(timeout);
+                clearTimeout(timer);
                 reject(error);
             });
         });
