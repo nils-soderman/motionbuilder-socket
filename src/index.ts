@@ -18,6 +18,9 @@ export class MotionBuilderSocket {
     private writeQueue: { command: string, resolve: (value: string) => void, reject: (error: Error) => void }[] = [];
     private isExecuting = false;
 
+    /**
+     * @param ip The IP address of the MotionBuilder instance. Defaults to '127.0.0.1'
+     */
     constructor(
         public readonly ip = '127.0.0.1'
     ) { }
