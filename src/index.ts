@@ -161,7 +161,7 @@ export class MotionBuilderSocket {
 
         // MotionBuilder can only handle commands up to 1025 bytes
         if (Buffer.byteLength(command) > 1025) {
-            return Promise.reject(new Error('Command is too large, must be less than 1025 bytes'));
+            return Promise.reject(new Error('Command is too large, must be 1025 bytes or less'));
         }
 
         return this.write(command);
