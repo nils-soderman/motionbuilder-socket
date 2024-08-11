@@ -103,12 +103,13 @@ export class MotionBuilderSocket {
         if (this.isOpen()) {
             return Promise.resolve();
         }
-        this.socket = net.createConnection(this.port, this.ip);
-
-        this.socket.on('error', this.onError);
-        this.socket.on("close", this.onClose);
 
         return new Promise((resolve, reject: (error: Error) => void) => {
+            this.socket = new net.Socket();
+
+            this.socket.on('error', this.onError);
+            this.socket.on("close", this.onClose);
+
             let timer: NodeJS.Timeout | undefined = undefined;
             if (timeoutDuration > 0) {
                 timer = setTimeout(() => {
@@ -117,11 +118,12 @@ export class MotionBuilderSocket {
                 }, timeoutDuration);
             }
 
-            this.socket?.on('data', (data) => {
+            this.socket.on('data', (data) => {
                 const dataStr = data.toString().trim();
 
-                if (dataStr.match(/^Python [0-9]/))
-                    this.systemInfo = dataStr.split('\n')[0];
+                const systemInfoMatch = dataStr.match(/Python [0-9].*?\n/);
+                if (systemInfoMatch)
+                    this.systemInfo = systemInfoMatch[0].trimEnd();
 
                 if (dataStr.endsWith('>>>')) {
                     this.socket?.removeAllListeners('data');
@@ -131,10 +133,12 @@ export class MotionBuilderSocket {
                 }
             });
 
-            this.socket?.once('error', (error: any) => {
+            this.socket.once('error', (error: any) => {
                 clearTimeout(timer);
                 reject(error);
             });
+
+            this.socket.connect(this.port, this.ip);
         });
     }
 
