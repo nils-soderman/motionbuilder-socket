@@ -121,7 +121,7 @@ export class MotionBuilderSocket {
             this.socket.on('data', (data) => {
                 const dataStr = data.toString().trim();
 
-                const systemInfoMatch = dataStr.match(/Python [0-9].*?\n/);
+                const systemInfoMatch = dataStr.match(/Python [0-9].*?(\n|$)/);
                 if (systemInfoMatch)
                     this.systemInfo = systemInfoMatch[0].trimEnd();
 
