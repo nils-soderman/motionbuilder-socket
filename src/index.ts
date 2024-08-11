@@ -9,8 +9,8 @@ class ErrorWithCode extends Error {
 export class MotionBuilderSocket {
     readonly port = 4242;
 
-    /** System information about the connected MotionBuilder instance */
-    public systemInfo?: string;
+    /** Python interpreter info regarding the connected MotionBuilder instance */
+    public interpreterInfo?: string;
 
     private socket?: net.Socket;
     private isReady = false;
@@ -121,9 +121,9 @@ export class MotionBuilderSocket {
             this.socket.on('data', (data) => {
                 const dataStr = data.toString().trim();
 
-                const systemInfoMatch = dataStr.match(/Python [0-9].*?(\n|$)/);
-                if (systemInfoMatch)
-                    this.systemInfo = systemInfoMatch[0].trimEnd();
+                const interpreterMatch = dataStr.match(/Python [0-9].*?(\n|$)/);
+                if (interpreterMatch)
+                    this.interpreterInfo = interpreterMatch[0].trimEnd();
 
                 if (dataStr.endsWith('>>>')) {
                     this.socket?.removeAllListeners('data');
