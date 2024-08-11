@@ -9,6 +9,8 @@ class ErrorWithCode extends Error {
 export class MotionBuilderSocket {
     readonly port = 4242;
 
+    public systemInfo?: string;
+
     private socket?: net.Socket;
     private isReady = false;
 
@@ -113,7 +115,10 @@ export class MotionBuilderSocket {
             }
 
             this.socket?.on('data', (data) => {
-                const dataStr = data.toString().trimEnd();
+                const dataStr = data.toString().trim();
+
+                if (dataStr.startsWith('Python'))
+                    this.systemInfo = dataStr.split('\n')[0];
 
                 if (dataStr.endsWith('>>>')) {
                     this.socket?.removeAllListeners('data');
@@ -169,7 +174,7 @@ export class MotionBuilderSocket {
         }
 
         let globals_str = JSON.stringify(globals);
-        
+
         // Escape special characters
         globals_str = globals_str.replace(/\\/g, "\\\\");
         globals_str = globals_str.replace(/'/g, "\\'");

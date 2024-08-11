@@ -23,6 +23,7 @@ describe('RemoteExecution', () => {
 		expect(motionBuilderSocket.port).toBe(4242);
 
 		expect(motionBuilderSocket.isOpen()).toBe(true);
+		expect(motionBuilderSocket.systemInfo?.startsWith('Python')).toBe(true);
 	});
 
 	test('Hello World', async () => {
