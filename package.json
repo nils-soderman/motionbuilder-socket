@@ -1,6 +1,6 @@
 {
     "name": "motionbuilder-socket",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "description": "motionbuilder-socket",
     "keywords": [
         "motionbuilder",
@@ -24,10 +24,10 @@
     },
     "devDependencies": {
         "@types/jest": "^29.5.12",
-        "@types/node": "^20.4.2",
-        "ts-jest": "^29.1.5",
-        "tsup": "^7.1.0",
-        "typescript": "^5.1.6"
+        "@types/node": "^20.14.15",
+        "ts-jest": "^29.2.4",
+        "tsup": "^8.2.4",
+        "typescript": "^5.5.4"
     },
     "files": [
         "dist",
