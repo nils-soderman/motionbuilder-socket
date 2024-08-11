@@ -13,7 +13,7 @@ socket.open().then(async () => {
 });
 ```
 
-## Change Log
+## Changelog
 For a list of changes, see [releases](https://github.com/nils-soderman/motionbuilder-socket/releases)
 
 
