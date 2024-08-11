@@ -120,7 +120,7 @@ export class MotionBuilderSocket {
             this.socket?.on('data', (data) => {
                 const dataStr = data.toString().trim();
 
-                if (dataStr.startsWith('Python'))
+                if (dataStr.match(/^Python [0-9]/))
                     this.systemInfo = dataStr.split('\n')[0];
 
                 if (dataStr.endsWith('>>>')) {
