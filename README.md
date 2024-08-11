@@ -16,5 +16,6 @@ socket.open().then(async () => {
 ## Changelog
 For a list of changes, see [releases](https://github.com/nils-soderman/motionbuilder-socket/releases)
 
+<br>
 
 _*This is a third-party module and is not associated with Autodesk or MotionBuilder in any way._
