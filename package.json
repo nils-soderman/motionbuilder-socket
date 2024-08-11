@@ -1,6 +1,6 @@
 {
     "name": "motionbuilder-socket",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "motionbuilder-socket",
     "keywords": [
         "motionbuilder",
@@ -15,7 +15,7 @@
     "types": "dist/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/nils-soderman/motionbuilder-socket"
+        "url": "git+https://github.com/nils-soderman/motionbuilder-socket.git"
     },
     "scripts": {
         "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean",
