@@ -105,7 +105,7 @@ export class MotionBuilderSocket {
         }
 
         return new Promise((resolve, reject: (error: Error) => void) => {
-            this.socket = new net.Socket();
+            this.socket = net.createConnection(this.port, this.ip);
 
             this.socket.on('error', this.onError);
             this.socket.on("close", this.onClose);
@@ -137,8 +137,6 @@ export class MotionBuilderSocket {
                 clearTimeout(timer);
                 reject(error);
             });
-
-            this.socket.connect(this.port, this.ip);
         });
     }
 
