@@ -1,6 +1,8 @@
 # MotionBuilder Socket
 NodeJS module for connecting to Autodesk MotionBuilder and running python commands.
 
+This requires MotionBuilder's python server to be running, which is enabled by default and can be changed in: Settings -> Preferences -> Python -> Enabled Server
+
 ## Example
 ```typescript
 import { MotionBuilderSocket } from "motionbuilder-socket";
