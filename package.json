@@ -24,11 +24,11 @@
         "test": "jest"
     },
     "devDependencies": {
-        "@types/jest": "^29.5.12",
-        "@types/node": "^20.14.15",
-        "ts-jest": "^29.2.4",
-        "tsup": "^8.2.4",
-        "typescript": "^5.5.4"
+        "@types/jest": "^30.0.0",
+        "@types/node": "^25.0.1",
+        "ts-jest": "^29.4.6",
+        "tsup": "^8.5.1",
+        "typescript": "^5.9.3"
     },
     "files": [
         "dist",
